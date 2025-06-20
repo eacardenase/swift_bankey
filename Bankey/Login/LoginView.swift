@@ -29,6 +29,15 @@ class LoginView: UIView {
         return textField
     }()
 
+    let dividerView: UIView = {
+        let view = UIView()
+
+        view.backgroundColor = .secondarySystemFill
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+        return view
+    }()
+
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
 
@@ -60,11 +69,13 @@ extension LoginView {
 
     private func style() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemMint
+        backgroundColor = .secondarySystemBackground
+        layer.cornerRadius = 8
     }
 
     private func layout() {
         stackView.addArrangedSubview(usernameTextField)
+        stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(passwordTextField)
 
         addSubview(stackView)
