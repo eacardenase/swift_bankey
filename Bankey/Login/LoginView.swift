@@ -9,11 +9,20 @@ import UIKit
 
 class LoginView: UIView {
 
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 8
+
+        return stackView
+    }()
+
     lazy var usernameTextField: UITextField = {
         let textField = UITextField()
 
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "username"
+        textField.placeholder = "Username"
         textField.keyboardType = .asciiCapable
         textField.delegate = self
 
@@ -48,19 +57,26 @@ extension LoginView {
     }
 
     private func layout() {
-        addSubview(usernameTextField)
+        stackView.addArrangedSubview(usernameTextField)
 
+        addSubview(stackView)
+
+        // stackView
         NSLayoutConstraint.activate([
-            usernameTextField.topAnchor.constraint(
+            stackView.topAnchor.constraint(
                 equalTo: topAnchor,
                 constant: 8
             ),
-            usernameTextField.leadingAnchor.constraint(
+            stackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: 8
             ),
-            usernameTextField.trailingAnchor.constraint(
+            stackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
+                constant: -8
+            ),
+            stackView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
                 constant: -8
             ),
         ])
