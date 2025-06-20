@@ -33,6 +33,7 @@ extension LoginView {
 
     private func style() {
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemMint
     }
 
     private func layout() {
