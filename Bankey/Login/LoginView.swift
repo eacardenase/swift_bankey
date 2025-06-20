@@ -40,10 +40,6 @@ class LoginView: UIView {
         return textField
     }()
 
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 200, height: 200)
-    }
-
     // MARK: - Initializers
 
     override init(frame: CGRect) {
