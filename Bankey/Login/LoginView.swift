@@ -29,6 +29,17 @@ class LoginView: UIView {
         return textField
     }()
 
+    lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+
+        textField.placeholder = "Password"
+        textField.keyboardType = .asciiCapable
+        textField.isSecureTextEntry = true
+        textField.delegate = self
+
+        return textField
+    }()
+
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 200, height: 200)
     }
@@ -58,6 +69,7 @@ extension LoginView {
 
     private func layout() {
         stackView.addArrangedSubview(usernameTextField)
+        stackView.addArrangedSubview(passwordTextField)
 
         addSubview(stackView)
 
@@ -88,7 +100,7 @@ extension LoginView {
 extension LoginView: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        usernameTextField.endEditing(true)
+        endEditing(true)
 
         return true
     }
