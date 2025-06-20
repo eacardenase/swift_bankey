@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  Bankey
 //
 //  Created by Edwin Cardenas on 6/20/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +15,4 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemMint
     }
 
-
 }
-
