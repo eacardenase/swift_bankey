@@ -10,6 +10,20 @@ import UIKit
 class LoginViewController: UIViewController {
 
     let loginView = LoginView()
+    lazy var signInButton: UIButton = {
+        let button = UIButton(configuration: .filled())
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Sign In", for: .normal)
+        button.configuration?.imagePadding = 8
+        button.addTarget(
+            self,
+            action: #selector(signInTapped),
+            for: .touchUpInside
+        )
+
+        return button
+    }()
 
     // MARK: View Lifecycle
 
@@ -32,6 +46,7 @@ extension LoginViewController {
 
     private func layout() {
         view.addSubview(loginView)
+        view.addSubview(signInButton)
 
         // loginView
         NSLayoutConstraint.activate([
@@ -45,5 +60,30 @@ extension LoginViewController {
                 multiplier: 1
             ),
         ])
+
+        // loginButton
+        NSLayoutConstraint.activate([
+            signInButton.topAnchor.constraint(
+                equalTo: loginView.bottomAnchor,
+                constant: 16
+            ),
+            signInButton.leadingAnchor.constraint(
+                equalTo: loginView.leadingAnchor
+            ),
+            signInButton.trailingAnchor.constraint(
+                equalTo: loginView.trailingAnchor
+            ),
+        ])
+    }
+}
+
+// MARK: - Actions
+
+extension LoginViewController {
+
+    @objc func signInTapped(_ sender: UIButton) {
+        print(#function)
+
+        print(sender.layer.cornerRadius)
     }
 }
