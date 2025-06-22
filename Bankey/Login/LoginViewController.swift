@@ -24,6 +24,18 @@ class LoginViewController: UIViewController {
 
         return button
     }()
+    let errorMessageLabel: UILabel = {
+        let label = UILabel()
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .systemRed
+        label.numberOfLines = 0
+        label.text = "Error failure"
+        label.isHidden = false
+
+        return label
+    }()
 
     // MARK: View Lifecycle
 
@@ -47,6 +59,7 @@ extension LoginViewController {
     private func layout() {
         view.addSubview(loginView)
         view.addSubview(signInButton)
+        view.addSubview(errorMessageLabel)
 
         // loginView
         NSLayoutConstraint.activate([
@@ -71,6 +84,20 @@ extension LoginViewController {
                 equalTo: loginView.leadingAnchor
             ),
             signInButton.trailingAnchor.constraint(
+                equalTo: loginView.trailingAnchor
+            ),
+        ])
+
+        // errorMessageLabel
+        NSLayoutConstraint.activate([
+            errorMessageLabel.topAnchor.constraint(
+                equalTo: signInButton.bottomAnchor,
+                constant: 16
+            ),
+            errorMessageLabel.leadingAnchor.constraint(
+                equalTo: loginView.leadingAnchor
+            ),
+            errorMessageLabel.trailingAnchor.constraint(
                 equalTo: loginView.trailingAnchor
             ),
         ])
