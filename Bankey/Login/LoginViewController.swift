@@ -9,6 +9,29 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    let titleLabel: UILabel = {
+        let label = UILabel()
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.adjustsFontForContentSizeCategory = true
+        label.text = "Bankey"
+
+        return label
+    }()
+    let subtitleLabel: UILabel = {
+        let label = UILabel()
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.text = "Your premium source for all things banking!"
+
+        return label
+    }()
     let loginView = LoginView()
     lazy var signInButton: UIButton = {
         let button = UIButton(configuration: .filled())
@@ -82,9 +105,34 @@ extension LoginViewController {
     }
 
     private func layout() {
+        view.addSubview(titleLabel)
+        view.addSubview(subtitleLabel)
         view.addSubview(loginView)
         view.addSubview(signInButton)
         view.addSubview(errorMessageLabel)
+
+        // titleLabel
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.bottomAnchor.constraint(
+                equalTo: subtitleLabel.topAnchor,
+                constant: -24
+            ),
+        ])
+
+        // subtitleLabel
+        NSLayoutConstraint.activate([
+            subtitleLabel.leadingAnchor.constraint(
+                equalTo: loginView.leadingAnchor
+            ),
+            subtitleLabel.trailingAnchor.constraint(
+                equalTo: loginView.trailingAnchor
+            ),
+            subtitleLabel.bottomAnchor.constraint(
+                equalTo: loginView.topAnchor,
+                constant: -24
+            ),
+        ])
 
         // loginView
         NSLayoutConstraint.activate([
