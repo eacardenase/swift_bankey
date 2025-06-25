@@ -14,8 +14,6 @@ class OnboardingContainerViewController: UIViewController {
             navigationOrientation: .horizontal
         )
 
-        pageVC.view.translatesAutoresizingMaskIntoConstraints = false
-
         return pageVC
     }()
     var pages = [UIViewController]()
@@ -63,25 +61,11 @@ extension OnboardingContainerViewController {
         view.backgroundColor = .systemPurple
 
         pageViewController.dataSource = self
+        pageViewController.view.bounds = view.bounds
 
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
-
-        NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(
-                equalTo: view.topAnchor
-            ),
-            pageViewController.view.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ),
-            pageViewController.view.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
-            ),
-            pageViewController.view.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor
-            ),
-        ])
 
         pageViewController.setViewControllers(
             [pages.first!],
