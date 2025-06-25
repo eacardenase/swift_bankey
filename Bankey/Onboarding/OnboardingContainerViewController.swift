@@ -17,11 +17,20 @@ class OnboardingContainerViewController: UIViewController {
         return pageVC
     }()
     var pages = [UIViewController]()
-    var currentViewController: UIViewController {
-        didSet {
-            //
-        }
-    }
+    var currentViewController: UIViewController
+    lazy var closeButton: UIButton = {
+        let button = UIButton(type: .system)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Close", for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(closeButtonTapped),
+            for: .touchUpInside
+        )
+
+        return button
+    }()
 
     // MARK: - Initializers
 
@@ -76,16 +85,40 @@ extension OnboardingContainerViewController {
         pageViewController.view.bounds = view.bounds
 
         addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.didMove(toParent: self)
 
+        view.addSubview(pageViewController.view)
+        view.addSubview(closeButton)
+
+        pageViewController.didMove(toParent: self)
         pageViewController.setViewControllers(
             [pages.first!],
             direction: .forward,
             animated: false
         )
         currentViewController = pages.first!
+
+        // closeButton
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 16
+            ),
+            closeButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16
+            ),
+        ])
     }
+}
+
+// MARK: - Actions
+
+extension OnboardingContainerViewController {
+
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        print(#function)
+    }
+
 }
 
 // MARK: - UIPageViewControllerDataSource
