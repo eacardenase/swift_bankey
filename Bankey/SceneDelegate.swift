@@ -22,7 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
-        window?.rootViewController = OnboardingViewController()
+        window?.rootViewController = OnboardingViewController(
+            heroImageName: .delorean,
+            titleText:
+                "Bankey is faster, easier to use, and has a brand new look and feel that will make you feel like you are back in the 80s."
+        )
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

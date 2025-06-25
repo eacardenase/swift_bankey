@@ -37,13 +37,24 @@ class OnboardingViewController: UIViewController {
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.text =
-            "Bankey is faster, easier to use, and has a brand new look and feel that will make you feel like you are back in 1989."
 
         return label
     }()
 
     // MARK: - Initializers
+
+    init(heroImageName resource: ImageResource, titleText: String) {
+        onboardingImageView.image = UIImage(resource: resource)
+        onboardingLabel.text = titleText
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
