@@ -71,6 +71,7 @@ extension OnboardingViewController {
         onboardingStackView.addArrangedSubview(onboardingImageView)
         onboardingStackView.addArrangedSubview(onboardingLabel)
 
+        view.backgroundColor = .systemBackground
         view.addSubview(onboardingStackView)
 
         NSLayoutConstraint.activate([
