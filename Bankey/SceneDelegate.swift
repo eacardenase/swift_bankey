@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         loginViewController.delegate = self
         onboardingContainerViewController.delegate = self
 
-        window?.rootViewController = onboardingContainerViewController
+        window?.rootViewController = loginViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -67,7 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate: LoginViewControllerDelegate {
 
     func didLogin() {
-        print(#function)
+        setRootViewController(onboardingContainerViewController)
     }
 
 }
@@ -78,6 +78,34 @@ extension SceneDelegate: OnboardingContainerViewControllerDelegate {
 
     func didFinishOnboarding() {
         print(#function)
+    }
+
+}
+
+// MARK: - Helpers
+
+extension SceneDelegate {
+
+    func setRootViewController(
+        _ viewController: UIViewController,
+        animated: Bool = true
+    ) {
+        guard animated, let window = window else {
+            self.window?.rootViewController = viewController
+            self.window?.makeKeyAndVisible()
+
+            return
+        }
+
+        window.rootViewController = viewController
+        window.makeKeyAndVisible()
+
+        UIView.transition(
+            with: window,
+            duration: 0.3,
+            options: .transitionCrossDissolve,
+            animations: nil
+        )
     }
 
 }
