@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol OnboardingContainerViewControllerDelegate: NSObjectProtocol {
+    func didFinishOnboarding()
+}
+
 class OnboardingContainerViewController: UIViewController {
     lazy var pageViewController: UIPageViewController = {
         let pageVC = UIPageViewController(
@@ -31,6 +35,8 @@ class OnboardingContainerViewController: UIViewController {
 
         return button
     }()
+    
+    weak var delegate: OnboardingContainerViewControllerDelegate?
 
     // MARK: - Initializers
 
@@ -116,7 +122,7 @@ extension OnboardingContainerViewController {
 extension OnboardingContainerViewController {
 
     @objc func closeButtonTapped(_ sender: UIButton) {
-        print(#function)
+        delegate?.didFinishOnboarding()
     }
 
 }
