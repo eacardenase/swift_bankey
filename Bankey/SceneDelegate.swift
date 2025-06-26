@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let loginViewController = LoginViewController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -22,7 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
-        window?.rootViewController = OnboardingContainerViewController()
+
+        loginViewController.delegate = self
+
+        window?.rootViewController = loginViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -56,3 +60,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+// MARK: - LoginViewControllerDelegate
+
+extension SceneDelegate: LoginViewControllerDelegate {
+
+    func didLogin() {
+        print(#function)
+    }
+
+}
