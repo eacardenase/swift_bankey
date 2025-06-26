@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let loginViewController = LoginViewController()
     let onboardingContainerViewController = OnboardingContainerViewController()
+    let dummyViewController = DummyViewController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -27,8 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         loginViewController.delegate = self
         onboardingContainerViewController.delegate = self
+        dummyViewController.delegate = self
 
-        window?.rootViewController = DummyViewController()
+        window?.rootViewController = loginViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -77,7 +79,17 @@ extension SceneDelegate: LoginViewControllerDelegate {
 extension SceneDelegate: OnboardingContainerViewControllerDelegate {
 
     func didFinishOnboarding() {
-        print(#function)
+        setRootViewController(dummyViewController)
+    }
+
+}
+
+// MARK: - LogoutDelegate
+
+extension SceneDelegate: LogoutDelegate {
+
+    func didLogout() {
+        setRootViewController(loginViewController)
     }
 
 }

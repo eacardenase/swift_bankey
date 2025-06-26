@@ -11,6 +11,10 @@ protocol LoginViewControllerDelegate: NSObjectProtocol {
     func didLogin()
 }
 
+protocol LogoutDelegate: NSObjectProtocol {
+    func didLogout()
+}
+
 class LoginViewController: UIViewController {
 
     let titleLabel: UILabel = {

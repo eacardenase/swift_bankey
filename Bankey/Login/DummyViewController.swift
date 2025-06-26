@@ -22,6 +22,8 @@ class DummyViewController: UIViewController {
 
         return button
     }()
+    
+    weak var delegate: LogoutDelegate?
 
     // MARK: - View Lifecycle
 
@@ -50,7 +52,7 @@ extension DummyViewController {
 extension DummyViewController {
 
     @objc func logoutButtonTapped(_ sender: UIButton) {
-        print(#function)
+        delegate?.didLogout()
     }
 
 }
