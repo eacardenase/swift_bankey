@@ -99,7 +99,7 @@ extension OnboardingContainerViewController {
         pageViewController.setViewControllers(
             [pages.first!],
             direction: .forward,
-            animated: false
+            animated: true
         )
         currentViewController = pages.first!
 
