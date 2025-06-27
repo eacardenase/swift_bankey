@@ -44,17 +44,8 @@ extension MainViewController {
         let moreNC = UINavigationController(rootViewController: moreVC)
 
         summaryNC.navigationBar.tintColor = appColor
-        hideNavigationBarLine(summaryNC.navigationBar)
 
         viewControllers = [summaryNC, moneyNC, moreNC]
-    }
-
-    private func hideNavigationBarLine(_ navigationBar: UINavigationBar) {
-        let img = UIImage()
-
-        navigationBar.shadowImage = img
-        navigationBar.setBackgroundImage(img, for: .default)
-        navigationBar.isTranslucent = false
     }
 
     private func setupTabBar() {

@@ -31,6 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         onboardingContainerViewController.delegate = self
         dummyViewController.delegate = self
 
+        mainViewController.setStatusBar()
+
         window?.rootViewController = mainViewController
     }
 
