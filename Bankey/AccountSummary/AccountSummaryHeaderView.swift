@@ -46,7 +46,6 @@ class AccountSummaryHeaderView: UIView {
     let imageView: UIImageView = {
         let _imageView = UIImageView()
 
-        _imageView.translatesAutoresizingMaskIntoConstraints = false
         _imageView.image = UIImage(systemName: "sun.max.fill")
         _imageView.tintColor = .systemYellow
 
@@ -86,7 +85,6 @@ extension AccountSummaryHeaderView {
             dateLabel,
         ])
 
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.axis = .vertical
         verticalStackView.alignment = .fill
         verticalStackView.distribution = .fill

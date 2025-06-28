@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AccountSummaryViewController: UIViewController {
+class AccountSummaryViewController: UITableViewController {
 
     let games = [
         "Pacman",
@@ -15,13 +15,7 @@ class AccountSummaryViewController: UIViewController {
         "Space Patrol",
     ]
 
-    let headerView: AccountSummaryHeaderView = {
-        let view = AccountSummaryHeaderView()
-
-        return view
-    }()
-
-    let tableView = UITableView()
+    let headerView = AccountSummaryHeaderView()
 
     // MARK: - View Lifecycle
 
@@ -33,8 +27,6 @@ class AccountSummaryViewController: UIViewController {
             UITableViewCell.self,
             forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self)
         )
-
-        setupViews()
     }
 }
 
@@ -42,51 +34,25 @@ class AccountSummaryViewController: UIViewController {
 
 extension AccountSummaryViewController {
 
-    private func setupViews() {
-        setupTableView()
-    }
-
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
-            ),
-            tableView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor
-            ),
-            tableView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor
-            ),
-            tableView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor
-            ),
-        ])
-    }
 }
 
 // MARK: - UITableViewDelegate
 
-extension AccountSummaryViewController: UITableViewDelegate {
+extension AccountSummaryViewController {
 
 }
 
 // MARK: - UITableViewDataSource
 
-extension AccountSummaryViewController: UITableViewDataSource {
+extension AccountSummaryViewController {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
         return games.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(
