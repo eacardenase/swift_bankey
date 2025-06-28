@@ -59,13 +59,25 @@ class AccountSummaryHeaderView: UIView {
     // MARK: - Initializers
 
     override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 144))
+        super.init(frame: frame)
 
         setupViews()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if let tableView = superview as? UITableView {
+            frame.size.width = tableView.bounds.width
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 144)
     }
 
 }
@@ -121,6 +133,11 @@ extension AccountSummaryHeaderView {
                 constant: -16
             ),
         ])
+
+        horizontalStackView.setContentHuggingPriority(
+            UILayoutPriority(240),
+            for: .horizontal
+        )
     }
 
 }

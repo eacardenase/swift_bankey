@@ -15,7 +15,9 @@ class AccountSummaryViewController: UITableViewController {
         "Space Patrol",
     ]
 
-    let headerView = AccountSummaryHeaderView()
+    lazy var headerView = AccountSummaryHeaderView(
+        frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 144)
+    )
 
     // MARK: - View Lifecycle
 
@@ -46,13 +48,19 @@ extension AccountSummaryViewController {
 
 extension AccountSummaryViewController {
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    )
         -> Int
     {
         return games.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    )
         -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(
