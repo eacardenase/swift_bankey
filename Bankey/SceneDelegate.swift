@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         mainViewController.setStatusBar()
 
-        window?.rootViewController = mainViewController
+        window?.rootViewController = AccountSummaryViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

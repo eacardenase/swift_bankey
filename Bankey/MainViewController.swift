@@ -57,12 +57,6 @@ extension MainViewController {
 
 // MARK: - Dummy View Controllers
 
-class AccountSummaryViewController: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemGreen
-    }
-}
-
 class MoveMoneyViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .systemOrange
