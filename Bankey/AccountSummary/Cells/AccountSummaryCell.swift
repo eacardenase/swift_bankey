@@ -69,6 +69,16 @@ class AccountSummaryCell: UITableViewCell {
         return label
     }()
 
+    let chevronImageView: UIImageView = {
+        let imageView = UIImageView()
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = appColor
+        imageView.image = UIImage(systemName: "chevron.right")
+
+        return imageView
+    }()
+
     static let rowHeight: CGFloat = 100
 
     // MARK: View Lifecycle
@@ -98,6 +108,7 @@ extension AccountSummaryCell {
         balanceStackView.addArrangedSubview(balanceAmountLabel)
 
         contentView.addSubview(balanceStackView)
+        contentView.addSubview(chevronImageView)
 
         NSLayoutConstraint.activate([
             typeLabel.topAnchor.constraint(
@@ -144,6 +155,17 @@ extension AccountSummaryCell {
             balanceStackView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -32
+            ),
+        ])
+
+        NSLayoutConstraint.activate([
+            chevronImageView.topAnchor.constraint(
+                equalTo: underlineView.bottomAnchor,
+                constant: 8
+            ),
+            chevronImageView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -8
             ),
         ])
     }
