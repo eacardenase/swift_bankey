@@ -9,6 +9,18 @@ import UIKit
 
 class AccountSummaryHeaderView: UIView {
 
+    let horizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .top
+        stackView.distribution = .fill
+        stackView.spacing = 4
+
+        return stackView
+    }()
+
     let bankeyLabel: UILabel = {
         let label = UILabel()
 
@@ -37,7 +49,7 @@ class AccountSummaryHeaderView: UIView {
     let dateLabel: UILabel = {
         let label = UILabel()
 
-        label.text = "Bankey"
+        label.text = "Date"
         label.font = .preferredFont(forTextStyle: .body)
 
         return label
@@ -68,14 +80,6 @@ class AccountSummaryHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if let tableView = superview as? UITableView {
-            frame.size.width = tableView.bounds.width
-        }
-    }
-
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: 144)
     }
@@ -90,6 +94,9 @@ extension AccountSummaryHeaderView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = appColor
 
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+
         let verticalStackView = UIStackView(arrangedSubviews: [
             bankeyLabel,
             greetingLabel,
@@ -102,42 +109,41 @@ extension AccountSummaryHeaderView {
         verticalStackView.distribution = .fill
         verticalStackView.spacing = 8
 
-        let horizontalStackView = UIStackView(arrangedSubviews: [
-            verticalStackView,
-            imageView,
-        ])
+        horizontalStackView.addArrangedSubview(verticalStackView)
+        horizontalStackView.addArrangedSubview(imageView)
 
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.alignment = .top
-        horizontalStackView.distribution = .fill
-        horizontalStackView.spacing = 4
+        contentView.addSubview(horizontalStackView)
 
-        addSubview(horizontalStackView)
+        addSubview(contentView)
 
         NSLayoutConstraint.activate([
-            horizontalStackView.topAnchor.constraint(
+            contentView.topAnchor.constraint(
                 equalTo: topAnchor,
                 constant: 16
             ),
-            horizontalStackView.leadingAnchor.constraint(
+            contentView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: 16
             ),
-            horizontalStackView.trailingAnchor.constraint(
+            contentView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: -16
             ),
-            horizontalStackView.bottomAnchor.constraint(
+            contentView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
                 constant: -16
             ),
         ])
 
-        horizontalStackView.setContentHuggingPriority(
+        //        contentView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+        verticalStackView.setContentHuggingPriority(
             UILayoutPriority(240),
             for: .horizontal
         )
+        
+        imageView.setContentHuggingPriority(UILayoutPriority(251), for: .vertical)
+        imageView.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
     }
 
 }

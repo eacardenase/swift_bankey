@@ -16,7 +16,7 @@ class AccountSummaryViewController: UITableViewController {
     ]
 
     lazy var headerView = AccountSummaryHeaderView(
-        frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 144)
+        frame: CGRect(x: 0, y: 0, width: 0, height: 144)
     )
 
     // MARK: - View Lifecycle
