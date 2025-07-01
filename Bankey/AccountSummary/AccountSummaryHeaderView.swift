@@ -14,7 +14,14 @@ class AccountSummaryTableHeader: UIView {
     let appNameLabel = UILabel()
     let welcomeLabel = UILabel()
     let nameLabel = UILabel()
-    let dateLabel = UILabel()
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Date"
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        
+        return label
+    }()
 
     let imageView: UIImageView = {
         let _imageView = UIImageView()
@@ -50,10 +57,6 @@ extension AccountSummaryTableHeader {
         welcomeLabel.text = "Good morning,"
         
         nameLabel.text = "Jonathan"
-
-        
-        dateLabel.text = "Date"
-        dateLabel.font = UIFont.preferredFont(forTextStyle: .body)
         
         horizontalStack.axis = .horizontal
         horizontalStack.alignment = .top
