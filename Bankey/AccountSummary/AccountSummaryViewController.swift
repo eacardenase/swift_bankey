@@ -15,7 +15,7 @@ class AccountSummaryViewController: UIViewController {
         "Space Patrol",
     ]
 
-    let headerView = AccountSummaryHeaderView(frame: .zero)
+    lazy var headerView = AccountSummaryTableHeader(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 144))
 
     let tableView = UITableView()
 
@@ -23,57 +23,41 @@ class AccountSummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setup()
+        style()
+        layout()
+    }
 
-        tableView.register(
-            UITableViewCell.self,
-            forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self)
-        )
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-        setupViews()
+        tableView.tableHeaderView = headerView
+        headerView.layoutIfNeeded()
     }
 }
 
-// MARK: - Helpers
-
 extension AccountSummaryViewController {
-
-    private func setupViews() {
-        setupTableView()
-        setupTableHeaderView()
-    }
-
-    private func setupTableHeaderView() {
-        var size = headerView.systemLayoutSizeFitting(
-            UIView.layoutFittingCompressedSize
-        )
-
-        size.width = UIScreen.main.bounds.width
-        headerView.frame.size = size
-
-        tableView.tableHeaderView = headerView
-    }
-
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-
+    private func style() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func layout() {
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
-            ),
-            tableView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor
-            ),
-            tableView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor
-            ),
-            tableView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor
-            ),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
+
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
+    }
+    
+    private func setup() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 }
 
