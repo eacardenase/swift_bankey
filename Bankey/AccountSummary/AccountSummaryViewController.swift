@@ -104,9 +104,6 @@ extension AccountSummaryViewController: UITableViewDataSource {
             fatalError("Error typecasting AccountSummaryCell")
         }
 
-//        cell.textLabel?.text = games[indexPath.row]
-//        cell.selectionStyle = .none
-
         return cell
     }
 }
