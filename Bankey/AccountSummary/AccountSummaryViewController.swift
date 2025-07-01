@@ -15,11 +15,7 @@ class AccountSummaryViewController: UIViewController {
         "Space Patrol",
     ]
 
-    let headerView: AccountSummaryHeaderView = {
-        let view = AccountSummaryHeaderView()
-
-        return view
-    }()
+    let headerView = AccountSummaryHeaderView()
 
     let tableView = UITableView()
 
@@ -27,6 +23,13 @@ class AccountSummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        headerView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: view.frame.width,
+            height: 144
+        )
 
         tableView.tableHeaderView = headerView
         tableView.register(
