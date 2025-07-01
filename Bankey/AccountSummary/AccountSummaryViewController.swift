@@ -24,9 +24,10 @@ class AccountSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.rowHeight = AccountSummaryCell.rowHeight
         tableView.register(
-            UITableViewCell.self,
-            forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self)
+            AccountSummaryCell.self,
+            forCellReuseIdentifier: NSStringFromClass(AccountSummaryCell.self)
         )
 
         setupViews()
@@ -96,13 +97,15 @@ extension AccountSummaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: NSStringFromClass(UITableViewCell.self),
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NSStringFromClass(AccountSummaryCell.self),
             for: indexPath
-        )
+        ) as? AccountSummaryCell else {
+            fatalError("Error typecasting AccountSummaryCell")
+        }
 
-        cell.textLabel?.text = games[indexPath.row]
-        cell.selectionStyle = .none
+//        cell.textLabel?.text = games[indexPath.row]
+//        cell.selectionStyle = .none
 
         return cell
     }
