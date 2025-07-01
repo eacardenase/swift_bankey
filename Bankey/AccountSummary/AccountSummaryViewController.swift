@@ -15,7 +15,7 @@ class AccountSummaryViewController: UIViewController {
         "Space Patrol",
     ]
 
-    let headerView = AccountSummaryHeaderView()
+    let headerView = AccountSummaryHeaderView(frame: .zero)
 
     let tableView = UITableView()
 
@@ -24,14 +24,6 @@ class AccountSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        headerView.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: view.frame.width,
-            height: 144
-        )
-
-        tableView.tableHeaderView = headerView
         tableView.register(
             UITableViewCell.self,
             forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self)
@@ -47,6 +39,18 @@ extension AccountSummaryViewController {
 
     private func setupViews() {
         setupTableView()
+        setupTableHeaderView()
+    }
+
+    private func setupTableHeaderView() {
+        var size = headerView.systemLayoutSizeFitting(
+            UIView.layoutFittingCompressedSize
+        )
+
+        size.width = UIScreen.main.bounds.width
+        headerView.frame.size = size
+
+        tableView.tableHeaderView = headerView
     }
 
     private func setupTableView() {
