@@ -81,7 +81,6 @@ class AccountSummaryHeaderView: UIView {
 extension AccountSummaryHeaderView {
 
     private func setupViews() {
-        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = appColor
 
         let verticalStackView = UIStackView(arrangedSubviews: [
