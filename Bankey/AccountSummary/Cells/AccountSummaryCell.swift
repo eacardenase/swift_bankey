@@ -60,11 +60,14 @@ class AccountSummaryCell: UITableViewCell {
         return label
     }()
 
-    let balanceAmountLabel: UILabel = {
+    lazy var balanceAmountLabel: UILabel = {
         let label = UILabel()
 
         label.textAlignment = .right
-        label.text = "$929,466.63"
+        label.attributedText = makeFormattedBalance(
+            dollars: "929,466",
+            cents: "63"
+        )
 
         return label
     }()
@@ -79,7 +82,7 @@ class AccountSummaryCell: UITableViewCell {
         return imageView
     }()
 
-    static let rowHeight: CGFloat = 100
+    static let rowHeight: CGFloat = 112
 
     // MARK: View Lifecycle
 
@@ -168,6 +171,40 @@ extension AccountSummaryCell {
                 constant: -8
             ),
         ])
+    }
+
+    private func makeFormattedBalance(dollars: String, cents: String)
+        -> NSAttributedString
+    {
+        let dollarSignAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.preferredFont(forTextStyle: .callout),
+            .baselineOffset: 8,
+        ]
+        let dollarAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.preferredFont(forTextStyle: .title1)
+        ]
+        let centsAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.preferredFont(forTextStyle: .footnote),
+            .baselineOffset: 8,
+        ]
+
+        let rootString = NSMutableAttributedString(
+            string: "$",
+            attributes: dollarSignAttributes
+        )
+        let dollarString = NSAttributedString(
+            string: dollars,
+            attributes: dollarAttributes
+        )
+        let centsString = NSAttributedString(
+            string: cents,
+            attributes: centsAttributes
+        )
+
+        rootString.append(dollarString)
+        rootString.append(centsString)
+
+        return rootString
     }
 
 }
