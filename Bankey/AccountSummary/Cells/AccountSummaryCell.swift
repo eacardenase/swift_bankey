@@ -159,12 +159,15 @@ extension AccountSummaryCell {
                 equalTo: contentView.trailingAnchor,
                 constant: -32
             ),
+            balanceStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -16
+            ),
         ])
 
         NSLayoutConstraint.activate([
-            chevronImageView.topAnchor.constraint(
-                equalTo: underlineView.bottomAnchor,
-                constant: 8
+            chevronImageView.centerYAnchor.constraint(
+                equalTo: contentView.centerYAnchor,
             ),
             chevronImageView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,

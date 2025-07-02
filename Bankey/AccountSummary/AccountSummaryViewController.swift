@@ -24,7 +24,8 @@ class AccountSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.rowHeight = AccountSummaryCell.rowHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = AccountSummaryCell.rowHeight
         tableView.register(
             AccountSummaryCell.self,
             forCellReuseIdentifier: NSStringFromClass(AccountSummaryCell.self)
