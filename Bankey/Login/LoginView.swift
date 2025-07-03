@@ -45,6 +45,7 @@ class LoginView: UIView {
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
         textField.delegate = self
+        textField.enablePasswordToggle()
 
         return textField
     }()
