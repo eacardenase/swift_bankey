@@ -15,7 +15,7 @@ struct CurrencyFormatter {
         return makeBalanceAttributed(dollars: tuple.dollars, cents: tuple.cents)
     }
 
-    private func breakIntoDollarsAndCents(_ amount: Decimal) -> (
+    func breakIntoDollarsAndCents(_ amount: Decimal) -> (
         dollars: String, cents: String
     ) {
         let tuple: (dollars: Double, cents: Double) = modf(amount.doubleValue)
@@ -29,11 +29,15 @@ struct CurrencyFormatter {
     private func convertDollar(_ dollarPart: Double) -> String {
         let dollarsWithDecimal = dollarsFormatted(dollarPart)
         let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+
         let decimalSeparator = formatter.decimalSeparator!
         let dollarComponents = dollarsWithDecimal.components(
             separatedBy: decimalSeparator
         )
-        let dollars = dollarComponents.first!
+        var dollars = dollarComponents.first!
+
+        dollars.removeFirst()
 
         return dollars
     }
@@ -50,9 +54,11 @@ struct CurrencyFormatter {
         return cents
     }
 
-    private func dollarsFormatted(_ dollars: Double) -> String {
+    func dollarsFormatted(_ dollars: Double) -> String {
         let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
 
+        formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
 
         if let result = formatter.string(from: dollars as NSNumber) {
@@ -76,7 +82,7 @@ struct CurrencyFormatter {
             .font: UIFont.preferredFont(forTextStyle: .footnote),
             .baselineOffset: 8,
         ]
-        
+
         let currentLocale = Locale.current
         let currencySymbol = currentLocale.currencySymbol
 
