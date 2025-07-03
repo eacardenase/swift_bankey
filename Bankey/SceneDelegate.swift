@@ -29,9 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         loginViewController.delegate = self
         onboardingContainerViewController.delegate = self
 
-        mainViewController.setStatusBar()
-
-        window?.rootViewController = mainViewController
+        displayLogin()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -70,11 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate: LoginViewControllerDelegate {
 
     func didLogin() {
-        if LocalState.hasOnboarded {
-            setRootViewController(mainViewController)
-        } else {
-            setRootViewController(onboardingContainerViewController)
-        }
+        displayNextScreen()
     }
 
 }
@@ -85,6 +79,8 @@ extension SceneDelegate: OnboardingContainerViewControllerDelegate {
 
     func didFinishOnboarding() {
         LocalState.hasOnboarded = true
+
+        prepareMainView()
 
         setRootViewController(mainViewController)
     }
@@ -125,6 +121,23 @@ extension SceneDelegate {
             options: .transitionCrossDissolve,
             animations: nil
         )
+    }
+
+    private func displayLogin() {
+        setRootViewController(loginViewController)
+    }
+
+    private func displayNextScreen() {
+        if LocalState.hasOnboarded {
+            prepareMainView()
+            setRootViewController(mainViewController)
+        } else {
+            setRootViewController(onboardingContainerViewController)
+        }
+    }
+
+    private func prepareMainView() {
+        mainViewController.setStatusBar()
     }
 
 }
