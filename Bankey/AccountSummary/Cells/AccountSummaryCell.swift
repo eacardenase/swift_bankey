@@ -18,6 +18,11 @@ class AccountSummaryCell: UITableViewCell {
     struct ViewModel {
         let accountType: AccountType
         let accountName: String
+        let balance: Decimal
+
+        var balanceAsAttributedString: NSAttributedString {
+            return CurrencyFormatter().makeAttributedCurrency(balance)
+        }
     }
 
     private(set) var viewModel: ViewModel?
@@ -55,7 +60,7 @@ class AccountSummaryCell: UITableViewCell {
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 0
+        stackView.spacing = 8
 
         return stackView
     }()
@@ -73,10 +78,6 @@ class AccountSummaryCell: UITableViewCell {
         let label = UILabel()
 
         label.textAlignment = .right
-        label.attributedText = makeFormattedBalance(
-            dollars: "929,466",
-            cents: "63"
-        )
 
         return label
     }()
@@ -185,43 +186,10 @@ extension AccountSummaryCell {
         ])
     }
 
-    private func makeFormattedBalance(dollars: String, cents: String)
-        -> NSAttributedString
-    {
-        let dollarSignAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.preferredFont(forTextStyle: .callout),
-            .baselineOffset: 8,
-        ]
-        let dollarAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.preferredFont(forTextStyle: .title1)
-        ]
-        let centsAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.preferredFont(forTextStyle: .footnote),
-            .baselineOffset: 8,
-        ]
-
-        let rootString = NSMutableAttributedString(
-            string: "$",
-            attributes: dollarSignAttributes
-        )
-        let dollarString = NSAttributedString(
-            string: dollars,
-            attributes: dollarAttributes
-        )
-        let centsString = NSAttributedString(
-            string: cents,
-            attributes: centsAttributes
-        )
-
-        rootString.append(dollarString)
-        rootString.append(centsString)
-
-        return rootString
-    }
-
     func configure(with viewModel: ViewModel) {
         typeLabel.text = viewModel.accountType.rawValue
         nameLabel.text = viewModel.accountName
+        balanceAmountLabel.attributedText = viewModel.balanceAsAttributedString
 
         switch viewModel.accountType {
         case .Banking:
