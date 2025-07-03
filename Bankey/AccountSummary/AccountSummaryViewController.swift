@@ -15,6 +15,19 @@ class AccountSummaryViewController: UIViewController {
 
     let tableView = UITableView()
 
+    lazy var logoutButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            title: "Logout",
+            style: .plain,
+            target: self,
+            action: #selector(logoutTapped)
+        )
+
+        button.tintColor = .label
+
+        return button
+    }()
+
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -38,6 +51,7 @@ extension AccountSummaryViewController {
     private func setup() {
         setupTableView()
         setupTableHeaderView()
+        setupNavigationBar()
         fetchData()
     }
 
@@ -75,6 +89,10 @@ extension AccountSummaryViewController {
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
             ),
         ])
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = logoutButton
     }
 }
 
@@ -158,4 +176,14 @@ extension AccountSummaryViewController {
         accounts.append(investment1)
         accounts.append(investment2)
     }
+}
+
+// MARK: - Actions
+
+extension AccountSummaryViewController {
+
+    @objc func logoutTapped(_ sender: UIBarButtonItem) {
+        NotificationCenter.default.post(name: .logout, object: nil)
+    }
+
 }
