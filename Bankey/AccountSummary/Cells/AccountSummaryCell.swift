@@ -28,7 +28,6 @@ class AccountSummaryCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .caption1)
         label.adjustsFontForContentSizeCategory = true
-        label.text = "Account type"
 
         return label
     }()
@@ -37,7 +36,6 @@ class AccountSummaryCell: UITableViewCell {
         let view = UIView()
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = appColor
 
         return view
     }()
@@ -48,7 +46,6 @@ class AccountSummaryCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
-        label.text = "Account name"
 
         return label
     }()
@@ -68,7 +65,6 @@ class AccountSummaryCell: UITableViewCell {
 
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .right
-        label.text = "Some balance"
 
         return label
     }()
