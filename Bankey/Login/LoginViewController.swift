@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         label.adjustsFontForContentSizeCategory = true
         label.text = "Bankey"
+        label.alpha = 0
 
         return label
     }()
@@ -37,6 +38,7 @@ class LoginViewController: UIViewController {
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.text = "Your premium source for all things banking!"
+        label.alpha = 0
 
         return label
     }()
@@ -241,8 +243,10 @@ extension LoginViewController {
 extension LoginViewController {
 
     private func animate() {
+        let duration = 0.75
+
         let animator1 = UIViewPropertyAnimator(
-            duration: 0.75,
+            duration: duration,
             curve: .easeInOut
         ) {
             self.titleLeadingAnchor?.constant = self.leadingEdgeOnScreen
@@ -251,7 +255,7 @@ extension LoginViewController {
         }
 
         let animator2 = UIViewPropertyAnimator(
-            duration: 0.75,
+            duration: duration,
             curve: .easeInOut
         ) {
             self.subtitleLeadingAnchor?.constant = self.leadingEdgeOnScreen
@@ -259,8 +263,19 @@ extension LoginViewController {
             self.view.layoutIfNeeded()
         }
 
+        let animator3 = UIViewPropertyAnimator(
+            duration: duration * 2,
+            curve: .easeInOut
+        ) {
+            self.titleLabel.alpha = 1
+            self.subtitleLabel.alpha = 1
+
+            self.view.layoutIfNeeded()
+        }
+
         animator1.startAnimation()
         animator2.startAnimation(afterDelay: 0.5)
+        animator3.startAnimation(afterDelay: 0.5)
     }
 
 }
