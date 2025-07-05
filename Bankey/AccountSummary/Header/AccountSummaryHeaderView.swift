@@ -58,6 +58,14 @@ class AccountSummaryHeaderView: UIView {
         return _imageView
     }()
 
+    let shakeyBellView: ShakeyBellView = {
+        let view = ShakeyBellView()
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    }()
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -112,6 +120,7 @@ extension AccountSummaryHeaderView {
         contentView.addSubview(horizontalStackView)
 
         addSubview(contentView)
+        addSubview(shakeyBellView)
 
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor),
@@ -129,6 +138,12 @@ extension AccountSummaryHeaderView {
                 equalTo: contentView.leadingAnchor,
                 constant: 16
             ),
+        ])
+
+        // shakeyBellView
+        NSLayoutConstraint.activate([
+            shakeyBellView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            shakeyBellView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
 
         let trailingConstraint = horizontalStackView.trailingAnchor.constraint(
