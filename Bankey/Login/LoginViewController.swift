@@ -77,12 +77,26 @@ class LoginViewController: UIViewController {
 
     weak var delegate: LoginViewControllerDelegate?
 
+    // MARK: - Animation Variables
+
+    var leadingEdgeOnScreen: CGFloat = 16
+    var leadingEdgeOffScreen: CGFloat = -1000
+
+    var titleLeadingAnchor: NSLayoutConstraint?
+    var subtitleLeadingAnchor: NSLayoutConstraint?
+
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        animate()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -133,18 +147,24 @@ extension LoginViewController {
 
         // titleLabel
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.trailingAnchor.constraint(
+                equalTo: loginView.trailingAnchor
+            ),
             titleLabel.bottomAnchor.constraint(
                 equalTo: subtitleLabel.topAnchor,
                 constant: -24
             ),
         ])
 
+        titleLeadingAnchor = titleLabel.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: leadingEdgeOffScreen
+        )
+
+        titleLeadingAnchor?.isActive = true
+
         // subtitleLabel
         NSLayoutConstraint.activate([
-            subtitleLabel.leadingAnchor.constraint(
-                equalTo: loginView.leadingAnchor
-            ),
             subtitleLabel.trailingAnchor.constraint(
                 equalTo: loginView.trailingAnchor
             ),
@@ -153,6 +173,13 @@ extension LoginViewController {
                 constant: -24
             ),
         ])
+
+        subtitleLeadingAnchor = subtitleLabel.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: leadingEdgeOffScreen
+        )
+
+        subtitleLeadingAnchor?.isActive = true
 
         // loginView
         NSLayoutConstraint.activate([
@@ -195,6 +222,7 @@ extension LoginViewController {
             ),
         ])
     }
+
 }
 
 // MARK: - Actions
@@ -206,4 +234,23 @@ extension LoginViewController {
 
         login()
     }
+}
+
+// MARK: - Animations
+
+extension LoginViewController {
+
+    private func animate() {
+        let animator = UIViewPropertyAnimator(
+            duration: 0.75,
+            curve: .easeInOut
+        ) {
+            self.titleLeadingAnchor?.constant = self.leadingEdgeOnScreen
+            self.subtitleLeadingAnchor?.constant = self.leadingEdgeOnScreen
+            self.view.layoutIfNeeded()
+        }
+
+        animator.startAnimation()
+    }
+
 }
