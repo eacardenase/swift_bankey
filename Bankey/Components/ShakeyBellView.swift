@@ -19,6 +19,21 @@ class ShakeyBellView: UIView {
         return _imageView
     }()
 
+    lazy var buttomView: UIButton = {
+        let buttom = UIButton()
+
+        buttom.translatesAutoresizingMaskIntoConstraints = false
+        buttom.setTitle("9", for: .normal)
+        buttom.setTitleColor(.white, for: .normal)
+        buttom.titleLabel?.font = .systemFont(ofSize: 13)
+        buttom.backgroundColor = .systemRed
+        buttom.layer.cornerRadius = buttonHeight / 2
+
+        return buttom
+    }()
+
+    let buttonHeight: CGFloat = 16
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -49,12 +64,25 @@ extension ShakeyBellView {
 
     private func setupViews() {
         addSubview(imageView)
+        addSubview(buttomView)
 
+        // imageView
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 24),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+        ])
+
+        // buttomView
+        NSLayoutConstraint.activate([
+            buttomView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            buttomView.leadingAnchor.constraint(
+                equalTo: imageView.trailingAnchor,
+                constant: -9
+            ),
+            buttomView.heightAnchor.constraint(equalToConstant: buttonHeight),
+            buttomView.widthAnchor.constraint(equalTo: buttomView.heightAnchor),
         ])
     }
 
