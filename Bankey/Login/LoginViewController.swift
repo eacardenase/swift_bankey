@@ -127,13 +127,13 @@ extension LoginViewController {
             fatalError("Username / password should never be nil.")
         }
 
-        if username.isEmpty || password.isEmpty {
-            configureView(withMessage: "Username / password cannot be blank")
+//        if username.isEmpty || password.isEmpty {
+//            configureView(withMessage: "Username / password cannot be blank")
+//
+//            return
+//        }
 
-            return
-        }
-
-        if username == "Edwin" && password == "Welcome" {
+        if username == "" && password == "" {
             signInButton.configuration?.showsActivityIndicator = true
 
             delegate?.didLogin()

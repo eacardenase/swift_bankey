@@ -25,6 +25,13 @@ class ShakeyBellView: UIView {
         super.init(frame: frame)
 
         setupViews()
+
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(imageViewTapped)
+        )
+
+        addGestureRecognizer(tapGestureRecognizer)
     }
 
     required init?(coder: NSCoder) {
@@ -42,13 +49,22 @@ extension ShakeyBellView {
 
     private func setupViews() {
         addSubview(imageView)
-        
+
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 24),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
         ])
     }
 
+}
+
+// MARK: - Actions
+
+extension ShakeyBellView {
+
+    @objc func imageViewTapped(_ sender: UITapGestureRecognizer) {
+        print(#function)
+    }
 }
