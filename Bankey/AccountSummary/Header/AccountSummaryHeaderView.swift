@@ -18,18 +18,14 @@ class AccountSummaryHeaderView: UIView {
         return label
     }()
 
-    let greetingLabel: UILabel = {
+    let welcomeLabel: UILabel = {
         let label = UILabel()
-
-        label.text = "Good morning,"
 
         return label
     }()
 
-    let usernameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
-
-        label.text = "Jonathan"
 
         return label
     }()
@@ -37,7 +33,6 @@ class AccountSummaryHeaderView: UIView {
     let dateLabel: UILabel = {
         let label = UILabel()
 
-        label.text = "Date"
         label.font = .preferredFont(forTextStyle: .body)
 
         return label
@@ -66,6 +61,19 @@ class AccountSummaryHeaderView: UIView {
         return view
     }()
 
+    struct ViewModel {
+        let welcomeMessage: String
+        let name: String
+        let date: Date
+
+        var dateFormatted: String {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+
+            return formatter.string(from: date)
+        }
+    }
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -93,8 +101,8 @@ extension AccountSummaryHeaderView {
 
         let verticalStackView = UIStackView(arrangedSubviews: [
             bankeyLabel,
-            greetingLabel,
-            usernameLabel,
+            welcomeLabel,
+            nameLabel,
             dateLabel,
         ])
 
@@ -159,6 +167,12 @@ extension AccountSummaryHeaderView {
         )
         bottomConstraint.priority = UILayoutPriority(900)
         bottomConstraint.isActive = true
+    }
+
+    private func configure(with viewModel: ViewModel) {
+        welcomeLabel.text = viewModel.welcomeMessage
+        nameLabel.text = viewModel.name
+        dateLabel.text = viewModel.dateFormatted
     }
 
 }
