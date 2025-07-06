@@ -169,10 +169,10 @@ extension AccountSummaryHeaderView {
         bottomConstraint.isActive = true
     }
 
-    private func configure(with viewModel: ViewModel) {
-        welcomeLabel.text = viewModel.welcomeMessage
-        nameLabel.text = viewModel.name
-        dateLabel.text = viewModel.dateFormatted
+    func configure(with viewModel: ViewModel) {
+        self.welcomeLabel.text = viewModel.welcomeMessage
+        self.nameLabel.text = viewModel.name
+        self.dateLabel.text = viewModel.dateFormatted
     }
 
 }
