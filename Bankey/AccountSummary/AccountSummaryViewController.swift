@@ -12,6 +12,7 @@ class AccountSummaryViewController: UIViewController {
     // MARK: - Request Models
 
     var profile: Profile?
+    var accounts = [Account]()
 
     // MARK: - View Models
 
@@ -116,6 +117,16 @@ extension AccountSummaryViewController {
         headerView.configure(with: viewModel)
     }
 
+    private func configureTableCells(with accounts: [Account]) {
+        accountCellViewModels = accounts.map {
+            AccountSummaryCell.ViewModel(
+                accountType: $0.type,
+                accountName: $0.name,
+                balance: $0.amount
+            )
+        }
+    }
+
 }
 
 // MARK: - UITableViewDelegate
@@ -161,7 +172,9 @@ extension AccountSummaryViewController: UITableViewDataSource {
 extension AccountSummaryViewController {
 
     private func fetchDataAndLoadViews() {
-        fetchProfile(forUserId: "1") { result in
+        let userId = 1
+
+        fetchProfile(forUserId: String(userId)) { result in
             switch result {
             case let .success(profile):
                 self.profile = profile
@@ -172,48 +185,18 @@ extension AccountSummaryViewController {
             }
         }
 
-        fetchAccounts()
+        fetchAccounts(forUserId: String(userId)) { result in
+            switch result {
+            case let .success(accounts):
+                self.accounts = accounts
+                self.configureTableCells(with: accounts)
+                self.tableView.reloadData()
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
-    private func fetchAccounts() {
-        let savings = AccountSummaryCell.ViewModel(
-            accountType: .Banking,
-            accountName: "Basic Savings",
-            balance: 929466.23
-        )
-        let chequing = AccountSummaryCell.ViewModel(
-            accountType: .Banking,
-            accountName: "No-Fee All-In Chequing",
-            balance: 17562.44
-        )
-        let visa = AccountSummaryCell.ViewModel(
-            accountType: .CreditCard,
-            accountName: "Visa Avion Card",
-            balance: 412.83
-        )
-        let masterCard = AccountSummaryCell.ViewModel(
-            accountType: .CreditCard,
-            accountName: "Student Mastercard",
-            balance: 50.83
-        )
-        let investment1 = AccountSummaryCell.ViewModel(
-            accountType: .Investment,
-            accountName: "Tax-Free Saver",
-            balance: 2000.00
-        )
-        let investment2 = AccountSummaryCell.ViewModel(
-            accountType: .Investment,
-            accountName: "Growth Fund",
-            balance: 15000.00
-        )
-
-        accountCellViewModels.append(savings)
-        accountCellViewModels.append(chequing)
-        accountCellViewModels.append(visa)
-        accountCellViewModels.append(masterCard)
-        accountCellViewModels.append(investment1)
-        accountCellViewModels.append(investment2)
-    }
 }
 
 // MARK: - Actions
