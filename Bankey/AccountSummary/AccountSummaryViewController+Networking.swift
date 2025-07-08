@@ -27,7 +27,7 @@ extension AccountSummaryViewController {
         guard
             let url = URL(
                 string:
-                    "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)"
+                    "https://python-bankey-flask-520607767384.us-east4.run.app/profile/\(userId)"
             )
         else {
             fatalError("AccountSummaryViewController profile url error.")
@@ -82,7 +82,7 @@ extension AccountSummaryViewController {
         guard
             let url = URL(
                 string:
-                    "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)/accounts"
+                    "https://python-bankey-flask-520607767384.us-east4.run.app/profile/\(userId)/accounts"
             )
         else {
             fatalError("AccountSummaryViewController account url error.")
