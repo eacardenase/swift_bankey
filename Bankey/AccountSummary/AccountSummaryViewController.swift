@@ -74,6 +74,7 @@ extension AccountSummaryViewController {
 
         size.width = UIScreen.main.bounds.width
         headerView.frame.size = size
+        headerView.configure(with: headerViewModel)
 
         tableView.tableHeaderView = headerView
     }
