@@ -64,7 +64,7 @@ extension AccountSummaryViewController {
         setupTableView()
         setupTableHeaderView()
         setupNavigationBar()
-        fetchDataAndLoadViews()
+        fetchData()
     }
 
     private func setupTableHeaderView() {
@@ -172,29 +172,38 @@ extension AccountSummaryViewController: UITableViewDataSource {
 
 extension AccountSummaryViewController {
 
-    private func fetchDataAndLoadViews() {
+    private func fetchData() {
         let userId = 1
+        let group = DispatchGroup()
 
+        group.enter()
         fetchProfile(forUserId: String(userId)) { result in
             switch result {
             case let .success(profile):
                 self.profile = profile
                 self.configureTableHeaderView(with: profile)
-                self.tableView.reloadData()
             case let .failure(error):
                 print(error.localizedDescription)
             }
+
+            group.leave()
         }
 
+        group.enter()
         fetchAccounts(forUserId: String(userId)) { result in
             switch result {
             case let .success(accounts):
                 self.accounts = accounts
                 self.configureTableCells(with: accounts)
-                self.tableView.reloadData()
             case let .failure(error):
                 print(error.localizedDescription)
             }
+
+            group.leave()
+        }
+
+        group.notify(queue: .main) {
+            self.tableView.reloadData()
         }
     }
 
