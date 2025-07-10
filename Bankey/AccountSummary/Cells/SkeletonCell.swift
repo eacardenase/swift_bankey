@@ -229,16 +229,28 @@ extension SkeletonCell {
     private func setupAnimation() {
         let typeGroup = makeAnimationGroup()
         //        typeGroup.beginTime = 0.0
-        typeLayer.add(typeGroup, forKey: "backgroundColor")
+        typeLayer.add(
+            typeGroup,
+            forKey: #keyPath(CAGradientLayer.backgroundColor)
+        )
 
         let nameGroup = makeAnimationGroup(previousGroup: typeGroup)
-        nameLayer.add(nameGroup, forKey: "backgroundColor")
+        nameLayer.add(
+            nameGroup,
+            forKey: #keyPath(CAGradientLayer.backgroundColor)
+        )
 
         let balanceGroup = makeAnimationGroup(previousGroup: nameGroup)
-        balanceLayer.add(balanceGroup, forKey: "backgroundColor")
+        balanceLayer.add(
+            balanceGroup,
+            forKey: #keyPath(CAGradientLayer.backgroundColor)
+        )
 
         let balanceAmountGroup = makeAnimationGroup(previousGroup: balanceGroup)
-        balanceAmountLayer.add(balanceAmountGroup, forKey: "backgroundColor")
+        balanceAmountLayer.add(
+            balanceAmountGroup,
+            forKey: #keyPath(CAGradientLayer.backgroundColor)
+        )
     }
 
 }
