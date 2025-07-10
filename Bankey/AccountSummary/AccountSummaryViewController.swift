@@ -156,6 +156,12 @@ extension AccountSummaryViewController {
         configureTableCells(with: accounts)
     }
 
+    private func reset() {
+        profile = nil
+        accounts = []
+        isLoaded = false
+    }
+
 }
 
 // MARK: - UITableViewDelegate
@@ -256,6 +262,9 @@ extension AccountSummaryViewController {
     }
 
     @objc func refreshContent(_ sender: UIRefreshControl) {
+        reset()
+        setupSkeletons()
+        tableView.reloadData()
         fetchData()
     }
 
