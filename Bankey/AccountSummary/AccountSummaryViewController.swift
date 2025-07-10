@@ -29,6 +29,8 @@ class AccountSummaryViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     let tableView = UITableView()
 
+    var isLoaded = false
+
     lazy var logoutButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
             title: "Logout",
@@ -53,6 +55,10 @@ class AccountSummaryViewController: UIViewController {
             AccountSummaryCell.self,
             forCellReuseIdentifier: NSStringFromClass(AccountSummaryCell.self)
         )
+        tableView.register(
+            SkeletonCell.self,
+            forCellReuseIdentifier: NSStringFromClass(SkeletonCell.self)
+        )
 
         setup()
     }
@@ -67,6 +73,7 @@ extension AccountSummaryViewController {
         setupTableHeaderView()
         setupNavigationBar()
         setupRefreshControl()
+        setupSkeletons()
         fetchData()
     }
 
@@ -141,6 +148,14 @@ extension AccountSummaryViewController {
         tableView.refreshControl = refreshControl
     }
 
+    private func setupSkeletons() {
+        let skeletonAccount = Account.makeSkeleton()
+
+        accounts = Array(repeating: skeletonAccount, count: 10)
+
+        configureTableCells(with: accounts)
+    }
+
 }
 
 // MARK: - UITableViewDelegate
@@ -163,6 +178,16 @@ extension AccountSummaryViewController: UITableViewDataSource {
         -> UITableViewCell
     {
         guard !accountCellViewModels.isEmpty else { return UITableViewCell() }
+        let account = accountCellViewModels[indexPath.row]
+
+        if !isLoaded {
+            let skeletonCell = tableView.dequeueReusableCell(
+                withIdentifier: NSStringFromClass(SkeletonCell.self),
+                for: indexPath
+            )
+
+            return skeletonCell
+        }
 
         guard
             let cell = tableView.dequeueReusableCell(
@@ -172,8 +197,6 @@ extension AccountSummaryViewController: UITableViewDataSource {
         else {
             fatalError("Error typecasting AccountSummaryCell")
         }
-
-        let account = accountCellViewModels[indexPath.row]
 
         cell.configure(with: account)
 
@@ -216,6 +239,7 @@ extension AccountSummaryViewController {
         }
 
         group.notify(queue: .main) {
+            self.isLoaded = true
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
         }
