@@ -162,6 +162,18 @@ extension AccountSummaryViewController {
         isLoaded = false
     }
 
+    private func showErrorAlert(withTitle title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+        present(alert, animated: true)
+    }
+
 }
 
 // MARK: - UITableViewDelegate
@@ -224,7 +236,25 @@ extension AccountSummaryViewController {
             case let .success(profile):
                 self.profile = profile
             case let .failure(error):
-                print(error.localizedDescription)
+                let title: String
+                let message: String
+
+                switch error {
+                case .serverError:
+                    title = "Server Error"
+                    message =
+                        "Ensure you are connected to the Internet. Please try again."
+                case .decodingError:
+                    title = "Decoding Error"
+                    message =
+                        "We could not process your request. Please try again."
+                }
+
+                self.showErrorAlert(
+                    withTitle: title,
+                    message: message
+
+                )
             }
 
             group.leave()
