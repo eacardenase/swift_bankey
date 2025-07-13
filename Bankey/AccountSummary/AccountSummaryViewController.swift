@@ -162,6 +162,28 @@ extension AccountSummaryViewController {
         isLoaded = false
     }
 
+    private func displayError(_ error: NetworkError) {
+        let title: String
+        let message: String
+
+        switch error {
+        case .serverError:
+            title = "Server Error"
+            message =
+                "Ensure you are connected to the Internet. Please try again."
+        case .decodingError:
+            title = "Decoding Error"
+            message =
+                "We could not process your request. Please try again."
+        }
+
+        self.showErrorAlert(
+            withTitle: title,
+            message: message
+
+        )
+    }
+
     private func showErrorAlert(withTitle title: String, message: String) {
         let alert = UIAlertController(
             title: title,
@@ -236,25 +258,7 @@ extension AccountSummaryViewController {
             case let .success(profile):
                 self.profile = profile
             case let .failure(error):
-                let title: String
-                let message: String
-
-                switch error {
-                case .serverError:
-                    title = "Server Error"
-                    message =
-                        "Ensure you are connected to the Internet. Please try again."
-                case .decodingError:
-                    title = "Decoding Error"
-                    message =
-                        "We could not process your request. Please try again."
-                }
-
-                self.showErrorAlert(
-                    withTitle: title,
-                    message: message
-
-                )
+                self.displayError(error)
             }
 
             group.leave()
@@ -266,7 +270,7 @@ extension AccountSummaryViewController {
             case let .success(accounts):
                 self.accounts = accounts
             case let .failure(error):
-                print(error.localizedDescription)
+                self.displayError(error)
             }
 
             group.leave()
