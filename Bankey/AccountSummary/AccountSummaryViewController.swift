@@ -260,10 +260,20 @@ extension AccountSummaryViewController: UITableViewDataSource {
 extension AccountSummaryViewController {
 
     private func fetchData() {
-        let userId = Int.random(in: 1...3)
+        let userId = String(Int.random(in: 1...3))
         let group = DispatchGroup()
 
+        fetchProfile(group: group, userId: userId)
+        fetchAccounts(group: group, userId: userId)
+
+        group.notify(queue: .main) {
+            self.reloadView()
+        }
+    }
+
+    private func fetchProfile(group: DispatchGroup, userId: String) {
         group.enter()
+
         profileManager.fetchProfile(forUserId: String(userId)) { result in
             switch result {
             case let .success(profile):
@@ -274,8 +284,11 @@ extension AccountSummaryViewController {
 
             group.leave()
         }
+    }
 
+    private func fetchAccounts(group: DispatchGroup, userId: String) {
         group.enter()
+
         fetchAccounts(forUserId: String(userId)) { result in
             switch result {
             case let .success(accounts):
@@ -286,19 +299,18 @@ extension AccountSummaryViewController {
 
             group.leave()
         }
-
-        group.notify(queue: .main) {
-            self.tableView.refreshControl?.endRefreshing()
-
-            guard let profile = self.profile else { return }
-
-            self.isLoaded = true
-            self.configureTableHeaderView(with: profile)
-            self.configureTableCells(with: self.accounts)
-            self.tableView.reloadData()
-        }
     }
 
+    private func reloadView() {
+        tableView.refreshControl?.endRefreshing()
+
+        guard let profile = self.profile else { return }
+
+        isLoaded = true
+        configureTableHeaderView(with: profile)
+        configureTableCells(with: self.accounts)
+        tableView.reloadData()
+    }
 }
 
 // MARK: - Actions
