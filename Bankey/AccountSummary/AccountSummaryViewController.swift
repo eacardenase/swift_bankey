@@ -349,4 +349,8 @@ extension AccountSummaryViewController {
         return titleAndMessage(for: error)
     }
 
+    func fetchProfileForTesting() {
+        fetchProfile(group: DispatchGroup(), userId: "1")
+    }
+
 }
