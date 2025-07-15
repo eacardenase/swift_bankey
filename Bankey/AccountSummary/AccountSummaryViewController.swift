@@ -33,6 +33,20 @@ class AccountSummaryViewController: UIViewController {
 
     var profileManager: ProfileManageable = ProfileManager()
 
+    // MARK: - Alert Controller
+
+    let alertController: UIAlertController = {
+        let alert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+        return alert
+    }()
+
     var isLoaded = false
 
     lazy var logoutButton: UIBarButtonItem = {
@@ -196,15 +210,10 @@ extension AccountSummaryViewController {
     }
 
     private func showErrorAlert(withTitle title: String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
+        alertController.title = title
+        alertController.message = message
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-
-        present(alert, animated: true)
+        present(alertController, animated: true)
     }
 
 }
