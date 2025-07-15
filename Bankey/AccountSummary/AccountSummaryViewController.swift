@@ -166,7 +166,9 @@ extension AccountSummaryViewController {
         isLoaded = false
     }
 
-    private func displayError(_ error: NetworkError) {
+    private func titleAndMessage(for error: NetworkError) -> (
+        title: String, message: String
+    ) {
         let title: String
         let message: String
 
@@ -181,10 +183,15 @@ extension AccountSummaryViewController {
                 "We could not process your request. Please try again."
         }
 
-        self.showErrorAlert(
-            withTitle: title,
-            message: message
+        return (title, message)
+    }
 
+    private func displayError(_ error: NetworkError) {
+        let titleAndMessage = titleAndMessage(for: error)
+
+        self.showErrorAlert(
+            withTitle: titleAndMessage.title,
+            message: titleAndMessage.message
         )
     }
 
@@ -307,6 +314,18 @@ extension AccountSummaryViewController {
         setupSkeletons()
         tableView.reloadData()
         fetchData()
+    }
+
+}
+
+// MARK: - Unit Testing
+
+extension AccountSummaryViewController {
+
+    func titleAndMessageForTesting(for error: NetworkError) -> (
+        title: String, message: String
+    ) {
+        return titleAndMessage(for: error)
     }
 
 }
