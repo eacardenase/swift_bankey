@@ -32,6 +32,7 @@ class AccountSummaryViewController: UIViewController {
     // MARK: - Networking
 
     var profileManager: ProfileManageable = ProfileManager()
+    var accountManager: AccountManageable = AccountManager()
 
     // MARK: - Alert Controller
 
@@ -298,7 +299,7 @@ extension AccountSummaryViewController {
     private func fetchAccounts(group: DispatchGroup, userId: String) {
         group.enter()
 
-        fetchAccounts(forUserId: String(userId)) { result in
+        accountManager.fetchAccounts(forUserId: String(userId)) { result in
             switch result {
             case let .success(accounts):
                 self.accounts = accounts

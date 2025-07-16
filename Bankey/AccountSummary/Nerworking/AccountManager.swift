@@ -1,11 +1,11 @@
 //
-//  AccountSummaryViewController+Networking.swift
+//  AccountManager.swift
 //  Bankey
 //
-//  Created by Edwin Cardenas on 7/6/25.
+//  Created by Edwin Cardenas on 7/16/25.
 //
 
-import UIKit
+import Foundation
 
 struct Account: Codable {
     let id: String
@@ -13,13 +13,28 @@ struct Account: Codable {
     let name: String
     let amount: Decimal
     let createdDateTime: Date
-    
+
     static func makeSkeleton() -> Self {
-        return Account(id: "1", type: .Banking, name: "Account name", amount: 0.0, createdDateTime: .now)
+        return Account(
+            id: "1",
+            type: .Banking,
+            name: "Account name",
+            amount: 0.0,
+            createdDateTime: .now
+        )
     }
 }
 
-extension AccountSummaryViewController {
+protocol AccountManageable {
+
+    func fetchAccounts(
+        forUserId userId: String,
+        completion: @escaping (Result<[Account], NetworkError>) -> Void
+    )
+
+}
+
+class AccountManager: AccountManageable {
 
     func fetchAccounts(
         forUserId userId: String,
