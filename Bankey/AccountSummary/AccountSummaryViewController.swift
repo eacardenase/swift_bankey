@@ -25,7 +25,7 @@ class AccountSummaryViewController: UIViewController {
 
     // MARK: - Components
 
-    let headerView = AccountSummaryHeaderView(frame: .zero)
+    let headerView = AccountSummaryHeaderView()
     let refreshControl = UIRefreshControl()
     let tableView = UITableView()
 
@@ -97,12 +97,6 @@ extension AccountSummaryViewController {
     }
 
     private func setupTableHeaderView() {
-        var size = headerView.systemLayoutSizeFitting(
-            UIView.layoutFittingCompressedSize
-        )
-
-        size.width = UIScreen.main.bounds.width
-        headerView.frame.size = size
         headerView.configure(with: headerViewModel)
 
         tableView.tableHeaderView = headerView

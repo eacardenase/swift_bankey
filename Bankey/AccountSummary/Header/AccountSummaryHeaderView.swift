@@ -76,8 +76,8 @@ class AccountSummaryHeaderView: UIView {
 
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 150))
 
         setupViews()
     }
@@ -122,28 +122,16 @@ extension AccountSummaryHeaderView {
         horizontalStackView.distribution = .fill
         horizontalStackView.spacing = 4
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.addSubview(horizontalStackView)
-
-        addSubview(contentView)
+        addSubview(horizontalStackView)
         addSubview(shakeyBellView)
 
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-
-        NSLayoutConstraint.activate([
             horizontalStackView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
+                equalTo: topAnchor,
                 constant: 16
             ),
             horizontalStackView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
+                equalTo: leadingAnchor,
                 constant: 16
             ),
         ])
@@ -155,14 +143,14 @@ extension AccountSummaryHeaderView {
         ])
 
         let trailingConstraint = horizontalStackView.trailingAnchor.constraint(
-            equalTo: contentView.trailingAnchor,
+            equalTo: trailingAnchor,
             constant: -16
         )
         trailingConstraint.priority = UILayoutPriority(900)
         trailingConstraint.isActive = true
 
         let bottomConstraint = horizontalStackView.bottomAnchor.constraint(
-            equalTo: contentView.bottomAnchor,
+            equalTo: bottomAnchor,
             constant: -16
         )
         bottomConstraint.priority = UILayoutPriority(900)
